@@ -6,7 +6,10 @@ interface User {
     usuario: string;
     foto: string;
     senha: string;
-    postagem?: Postagem[]; 
+    postagem?: Postagem[] | null
 }
 
 export default User;
+
+import { Postagem } from "./Postagem";
+

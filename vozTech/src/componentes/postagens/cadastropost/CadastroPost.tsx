@@ -2,12 +2,13 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import './CadastroPost.css';
 import Tema from '../../../models/Tema';
 import Postagem from '../../../models/Postagem';
-import { busca, buscaId, post, put } from '../../../services/Service';
-import { TokenState } from '../../../store/tokens/tokensReducer';
-import { Button, Container, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, Typography } from '../../../../node_modules/@material-ui/core/index';
-import { useSelector } from '../../../../node_modules/react-redux/es/exports';
-import { useNavigate, useParams } from '../../../../node_modules/react-router-dom/dist/index';
 import User from '../../../models/User';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Container, Typography, TextField, FormControl, InputLabel, Select, MenuItem, FormHelperText, Button } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { busca, buscaId, put, post } from '../../../services/Service';
+import { TokenState } from '../../../store/tokens/tokensReducer';
+import { toast } from 'react-toastify';
 
 function CadastroPost() {
     let navigate = useNavigate();
@@ -23,7 +24,16 @@ function CadastroPost() {
 
     useEffect(() => {
         if (token == "") {
-            alert("Você precisa estar logado")
+            toast.error("Você precisa estar logado", {
+                position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+            });
             navigate("/login")
 
         }
@@ -101,14 +111,32 @@ const [usuario, setUsuario] = useState<User>({
                     'Authorization': token
                 }
             })
-            alert('Postagem atualizada com sucesso');
+            toast.success("Postagem atualizada com sucesso", {
+                position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+            });
         } else {
             post(`/postagens`, postagem, setPostagem, {
                 headers: {
                     'Authorization': token
                 }
             })
-            alert('Postagem cadastrada com sucesso');
+            toast.success("Postagem cadastrada com sucesso", {
+                position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+            });
         }
         back()
 
